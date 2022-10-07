@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+import GlobalStyle from "./components/globalStyles";
+import HeroPage from "./pages/hero";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import QuizPage from "./pages/quiz";
+export default function App() {
 
-function App() {
+  const [formData, setFormData] = React.useState({
+    amountQuestions: "5",
+    difficulty: "easy",
+    category: "",
+  });
+
+  function handleChange(event) {
+    const { name, value, checked, type } = event.target;
+
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [name]: type === "checkbox" ? checked : value,
+      };
+    });
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <StyledContainer className="container">
+        <Routes> 
+          <Route path="/" element={<HeroPage handleChange={handleChange} formData={formData} />} />
+          <Route path="/quiz" element={<QuizPage formData={formData} />} />
+
+        </Routes>
+       
+      </StyledContainer>
+    </>
   );
 }
 
-export default App;
+
+const StyledContainer = styled.div`
+  
+`
