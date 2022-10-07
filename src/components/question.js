@@ -11,7 +11,7 @@ export default function Question(props) {
   }
 
   const answerElements = answersArray.map((answer) => (
-    <StyledQuestion>
+    <StyledQuestion key={answer + props.question}>
       <div className="button">
         <input
           id={answer + props.question}

@@ -5,27 +5,31 @@ export default function LoadingIndicator() {
   return (
     <StyledContainer className="container">
       <h1 className="loading-text"> Setting up your game!</h1>
-      <div class="lds-hourglass"></div>
+      <div className="lds-hourglass"></div>
     </StyledContainer>
   );
 }
 
 const StyledContainer = styled.div`
-   display: grid;
-   place-content: center;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
   
   min-height: 100vh;
   .loading-text {
     color: #ccd5ae;
     font-family: "Bungee Shade", cursive;
     font-size: 5rem;
+    text-align: center;
   }
   .lds-hourglass {
-  display: inline-block;
+  display: grid;
+  place-content: center;
   position: relative;
   width: 200px;
   height: 200px;
-  margin: 0 auto;
+  
 }
 .lds-hourglass:after {
   content: " ";

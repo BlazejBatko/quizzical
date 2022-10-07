@@ -20,9 +20,15 @@ export default function QuizPage({ formData }) {
     }
   }, [answersSubmitted]);
 
-  window.onscroll = function () {
-    scrollIndicator();
-  };
+  React.useEffect( () => {
+    window.onscroll = function () {
+      if(document.getElementById("myBar")) {
+        scrollIndicator();
+      }
+      
+    };
+  },[])
+ 
   function scrollIndicator() {
     const winScroll =
       document.body.scrollTop || document.documentElement.scrollTop;
@@ -32,25 +38,22 @@ export default function QuizPage({ formData }) {
     var scrolled = (winScroll / height) * 100;
     document.getElementById("myBar").style.width = scrolled + "%";
   }
+
+  
   function handleSubmit(e) {
     e.preventDefault();
-
     let i = 0;
-    let j = 0;
-
-    for (const key of Object.keys(answersState)) {
-      j++;
-    }
-
     for (const [key, value] of Object.entries(answersState)) {
+      
       if (value === "true") {
-        i++;
+        i++
       }
     }
 
     formEl.style.pointerEvents = "none";
     setCorrectAnswers(i);
     setAnswersSubmitted((prev) => !prev);
+  
   }
 
   function handleAnswerChange(e) {
@@ -62,11 +65,7 @@ export default function QuizPage({ formData }) {
     });
   }
 
-  function startNewGame() {
-    setData([]);
-    setAnswersSubmitted(false);
-    formEl.style.pointerEvents = "auto";
-    window.scrollTo(0, 0);
+  function fetchData() {
     fetch(
       `https://opentdb.com/api.php?amount=${amountQuestions}&difficulty=${difficulty}&type=multiple&category=${category}`
     )
@@ -74,13 +73,20 @@ export default function QuizPage({ formData }) {
       .then((data) => setData(data.results));
   }
 
+  function startNewGame() {
+   
+    
+    setAnswersState({})
+    setData([]);
+    setAnswersSubmitted(false);
+    formEl.style.pointerEvents = "auto";
+    window.scrollTo(0, 0);
+   fetchData()
+  }
+
   React.useEffect(() => {
-    fetch(
-      `https://opentdb.com/api.php?amount=${amountQuestions}&difficulty=${difficulty}&type=multiple&category=${category}`
-    )
-      .then((res) => res.json())
-      .then((data) => setData(data.results));
-  }, [amountQuestions, difficulty, category]);
+    fetchData()
+  }, []);
 
   let questionElemenents;
 
@@ -107,7 +113,7 @@ export default function QuizPage({ formData }) {
 
   return (
     <>
-    
+     
       {data.length ? (
         <>
           <StyledHeader className="header">
@@ -125,8 +131,7 @@ export default function QuizPage({ formData }) {
               <>
                 <h1 className="score">
                   {" "}
-                  You answered <span> {correctAnswers} </span> questions
-                  correctly{" "}
+                  You answered <span> {correctAnswers} </span> question{correctAnswers === 1? "" : "s"} correctly{" "}
                 </h1>
                 <button
                   className="new-game button-end"
