@@ -213,7 +213,7 @@ const StyledContainer = styled.div`
     border: 2px solid black;
     box-shadow: -10px 10px black;
     font-family: "Bungee Shade", cursive;
-    font-size: 2rem;
+    font-size: 3rem;
     padding: 0.25em 1em;
     border: 2px solid black;
     box-shadow: -10px 10px black;
@@ -233,6 +233,7 @@ const StyledContainer = styled.div`
   h1 {
     font-family: "Bungee Shade", cursive;
     font-size: 5rem;
+    text-align: center;
   }
   #questionsForm {
     display: flex;

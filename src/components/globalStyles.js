@@ -48,7 +48,7 @@ html {
     font-size: 80%
   }
   @media (max-width: 768px) {
-    font-size: 70%
+    font-size: 50%
   }
 }
 

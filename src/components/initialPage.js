@@ -10,7 +10,7 @@ export default function InitialPage({ handleChange, formData }) {
   React.useEffect(() => {
     if (showSettings) {
       const anchor = document.querySelector("#game-settings");
-      anchor.scrollIntoView({ block: "center" });
+      anchor.scrollIntoView({ block: "start" });
     }
   }, [showSettings]);
 
