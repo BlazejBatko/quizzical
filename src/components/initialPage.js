@@ -70,6 +70,7 @@ const StyledWrapper = styled.div`
     font-family: "Bungee Shade", cursive;
     font-size: 10rem;
     color: #d4a373;
+    margin-bottom: 2em;
   }
 
   @media (max-width: 1000px) {
@@ -87,8 +88,9 @@ const StyledWrapper = styled.div`
     height: 3em;
     
     background: #d4a373;
+    
     width: 10em;
-    font-size: 2rem;
+    font-size: 3rem;
     box-shadow: -10px 10px black;
     transition: all 0.2s ease;
     cursor: pointer;

@@ -71,6 +71,12 @@ const StyledQuestionCard = styled.div`
   .answers > fieldset {
     width: 20%
   }
+  @media (max-width: 768px) {
+    .answers {
+        display: flex;
+        gap: 25px;
+    }
+  }
 `;
 const StyledQuestion = styled.fieldset`
   border: none;
@@ -111,6 +117,7 @@ const StyledQuestion = styled.fieldset`
     
   }
 
+  
   .button input[type="radio"] {
     opacity: 0.001;
     z-index: 100;
@@ -134,4 +141,19 @@ const StyledQuestion = styled.fieldset`
     box-shadow: -10px 10px black;
     transition: all 0.2s ease;
   }
+
+  @media (max-width: 768px) {
+    .button label {
+        font-size: 2rem;
+        min-height: 5em;
+        height: fit-content;
+        min-width: 6em;
+        padding: 0;
+       
+    }
+    .button {
+        height: 10em;
+    }
+  }
+
 `;
