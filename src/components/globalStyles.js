@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.red{
+.outline-correct{
   outline: 5px solid #606c38;
   
 }

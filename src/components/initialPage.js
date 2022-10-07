@@ -70,10 +70,10 @@ const StyledWrapper = styled.div`
     font-family: "Bungee Shade", cursive;
     font-size: 10rem;
     color: #d4a373;
-    margin-bottom: 2em;
+    
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     .title {
       font-size: 7rem;
     }

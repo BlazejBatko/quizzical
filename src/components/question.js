@@ -4,12 +4,13 @@ import React, { useEffect } from "react";
 export default function Question(props) {
   const [answersArray, setAnswerArray] = React.useState(props.answersArray);
 
+    //function that decodes html so text like Pok&eacute;mon is rendered as Pokemon instead
   function decodeHtml(html) {
     var txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value;
   }
-
+   // creating element that includes all question cards
   const answerElements = answersArray.map((answer) => (
     <StyledQuestion key={answer + props.question}>
       <div className="button">
@@ -20,16 +21,17 @@ export default function Question(props) {
           value={answer === props.correctAnswer ? true : false}
           onChange={props.handleAnswerChange}
         />
-        {/* style={{background: answer === props.correctAnswer ? "inherit" : "blue"}}  */}
+       
         <label
+        // when answer is submitted, add outline-correct className so we can mark correct answers
           className={
             props.answersSubmitted && answer === props.correctAnswer
-              ? "red"
+              ? "outline-correct"
               : ""
           }
           htmlFor={answer + props.question}
         >
-          {" "}
+         
           {decodeHtml(answer)}
         </label>
       </div>

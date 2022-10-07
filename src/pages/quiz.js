@@ -7,19 +7,23 @@ import LoadingIndicator from "../components/Loading";
 export default function QuizPage({ formData }) {
   const { amountQuestions, category, difficulty } = formData;
   const formEl = document.getElementById("questionsForm");
-  const [data, setData] = React.useState({});
 
+
+  // States
+  const [data, setData] = React.useState({});
   const [answersState, setAnswersState] = React.useState({});
   const [correctAnswers, setCorrectAnswers] = React.useState(0);
   const [answersSubmitted, setAnswersSubmitted] = React.useState(false);
 
   React.useEffect(() => {
+    // scroll to score displaying correct answers and button to play new game
     if (answersSubmitted) {
       const anchor = document.querySelector("#newGame");
       anchor.scrollIntoView({ block: "center" });
     }
   }, [answersSubmitted]);
 
+  // scroll indicator
   React.useEffect( () => {
     window.onscroll = function () {
       if(document.getElementById("myBar")) {
@@ -28,6 +32,10 @@ export default function QuizPage({ formData }) {
       
     };
   },[])
+
+  React.useEffect(() => {
+    fetchData()
+  }, []);
  
   function scrollIndicator() {
     const winScroll =
@@ -39,7 +47,7 @@ export default function QuizPage({ formData }) {
     document.getElementById("myBar").style.width = scrolled + "%";
   }
 
-  
+  // function casted when form is submitted, iterate through answersState and increase value of i to sum correct answers
   function handleSubmit(e) {
     e.preventDefault();
     let i = 0;
@@ -49,7 +57,7 @@ export default function QuizPage({ formData }) {
         i++
       }
     }
-
+    // disabling form
     formEl.style.pointerEvents = "none";
     setCorrectAnswers(i);
     setAnswersSubmitted((prev) => !prev);
@@ -64,7 +72,7 @@ export default function QuizPage({ formData }) {
       };
     });
   }
-
+  // getting data from api
   function fetchData() {
     fetch(
       `https://opentdb.com/api.php?amount=${amountQuestions}&difficulty=${difficulty}&type=multiple&category=${category}`
@@ -72,10 +80,8 @@ export default function QuizPage({ formData }) {
       .then((res) => res.json())
       .then((data) => setData(data.results));
   }
-
+  // clearing states needed to start new game, and fetching new data
   function startNewGame() {
-   
-    
     setAnswersState({})
     setData([]);
     setAnswersSubmitted(false);
@@ -84,9 +90,7 @@ export default function QuizPage({ formData }) {
    fetchData()
   }
 
-  React.useEffect(() => {
-    fetchData()
-  }, []);
+ 
 
   let questionElemenents;
 
@@ -113,14 +117,16 @@ export default function QuizPage({ formData }) {
 
   return (
     <>
-     
+     {/* if data is fetched display form, elsewhere display loading indicator */}
       {data.length ? (
         <>
+        {/* scroll indicator */}
           <StyledHeader className="header">
             <div className="progress-container">
               <div className="progress-bar" id="myBar"></div>
             </div>
           </StyledHeader>
+          {/* go back to initial page with game settings */}
           <Link to="/">
             <StyledGoBackBtn>x</StyledGoBackBtn>
           </Link>
@@ -130,7 +136,7 @@ export default function QuizPage({ formData }) {
             {answersSubmitted ? (
               <>
                 <h1 className="score">
-                  {" "}
+                  {/* displaying proper message depending on correct answers amount */}
                   You answered <span> {correctAnswers} </span> question{correctAnswers === 1? "" : "s"} correctly{" "}
                 </h1>
                 <button
@@ -223,12 +229,12 @@ const StyledContainer = styled.div`
   .submit-form {
     background: #ccd5ae;
     color: black;
-    text-shadow: 5px 0px 10px white;
+    
   }
   .new-game {
     background: #d4a373;
-    color: white;
-    text-shadow: 5px 0px 10px black;
+    color: black;
+    
   }
   h1 {
     font-family: "Bungee Shade", cursive;
